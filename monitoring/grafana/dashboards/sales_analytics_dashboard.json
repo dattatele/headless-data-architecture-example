@@ -12,6 +12,14 @@
               "legendFormat": "{{region}}",
               "refId": "A"
             }
+          ],
+          "xaxis": {
+            "mode": "time"
+          },
+          "yaxes": [
+            {
+              "format": "currencyUSD"
+            }
           ]
         }
       ]

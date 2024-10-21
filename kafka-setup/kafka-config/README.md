@@ -1,0 +1,15 @@
+- **Explanation**:
+  - **broker.id=0**: Unique identifier for the broker. In a local environment, this is usually set to `0`. In production, this should be unique for each broker in a cluster.
+  - **listeners=PLAINTEXT://:9092**: The endpoint where Kafka listens for connections. For local development, PLAINTEXT is sufficient. In production, use `SASL_SSL` or `SSL` for secure communication.
+  - **log.dirs=/kafka/logs**: Directory where Kafka stores log data. For local development, a simple path is fine. In production, use high-performance storage to handle larger volumes.
+  - **zookeeper.connect=zookeeper:2181**: Connection string for Zookeeper. In production, multiple Zookeeper instances are recommended for high availability.
+  - **num.network.threads=3**: Number of threads handling network requests. For local testing, `3` is usually enough. In production, this should be scaled based on expected load.
+  - **num.io.threads=8**: Number of threads handling I/O. This should be tuned higher in production environments to match disk and network performance.
+  - **socket.send.buffer.bytes=102400** and **socket.receive.buffer.bytes=102400**: Socket buffer sizes. In production, these should be adjusted based on network capacity and performance testing.
+  - **socket.request.max.bytes=104857600**: Maximum size of a request. In production, adjust this to accommodate larger messages if needed.
+  - **offset.topic.replication.factor=1**: Replication factor for the offsets topic. For local use, `1` is fine. In production, set this to at least `3` to ensure reliability.
+  - **offsets.retention.minutes=1440**: Retention period for consumer offsets. In production, consider longer retention to prevent data loss.
+  - **transaction.state.log.replication.factor=1** and **transaction.state.log.min.isr=1**: Transaction log settings. In production, these should be increased for higher reliability.
+  - **log.retention.hours=168**: Log retention period (7 days). In production, adjust based on data retention policies.
+  - **log.segment.bytes=1073741824**: Size of a log segment before rolling. In production, adjust based on disk capacity and log analysis needs.
+  - **log.retention.check.interval.ms=300000**: Frequency of log retention checks. In production, this can be tuned for optimal performance.
