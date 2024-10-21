@@ -1,0 +1,19 @@
+{
+    "dashboard": {
+      "id": null,
+      "title": "Sales Analytics Dashboard",
+      "panels": [
+        {
+          "type": "graph",
+          "title": "Total Sales by Region",
+          "targets": [
+            {
+              "expr": "sum(total_amount) by (region)",
+              "legendFormat": "{{region}}",
+              "refId": "A"
+            }
+          ]
+        }
+      ]
+    }
+  }

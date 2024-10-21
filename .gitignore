@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Java
+*.class
+*.jar
+
+# Docker
+*.log
+
+# IDEs and Editors
+.idea/
+.vscode/
+*.iml
+
+# System Files
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# Python virtual environment
+venv/
