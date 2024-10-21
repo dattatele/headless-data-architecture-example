@@ -54,10 +54,26 @@ Headless data architecture provides several advantages over traditional streamin
 
 
 ### How It Works
-- **Apache Kafka** is used as the data streaming platform where data is produced and consumed in a distributed and scalable manner.
-- **Apache Flink** processes these data streams in real-time, enabling event-driven and stateful computations.
-- **Apache Iceberg** provides a data lake storage format, which allows users to store large volumes of data, enabling efficient querying and data versioning.
-- **Prometheus** and **Grafana** are used to monitor the whole system, providing visibility into the metrics of Kafka, Flink, and other services in the pipeline.
+1. **Data Generation**: A data generator script (`data-generator/generate_data.py`) is used to produce synthetic sales data and send it to a Kafka topic (`sales_orders`). This represents the incoming data from different systems or sensors.
+
+2. **Kafka as Data Stream**: Apache Kafka acts as a streaming platform that captures and brokers the generated data. Kafka allows multiple producers and consumers to interact with data streams in a scalable, fault-tolerant manner. The topics (`sales_orders`, `inventory_updates`) represent specific types of events that are produced and consumed by the system.
+
+3. **Real-time Processing with Flink**: Apache Flink consumes the streaming data from Kafka, processes it in real time, and performs necessary transformations. The Flink jobs (implemented in both Python and Java) aggregate sales data by region and compute metrics such as total sales amount.
+   - In the Python implementation (`flink-python/main.py`), Flink reads data from Kafka, aggregates the total sales per region, and prints the results.
+   - In the Java implementation (`flink-java/RealTimeSalesAnalytics.java`), Flink reads data from Kafka, parses the sales orders, aggregates sales per region, and outputs the results.
+
+4. **Data Lake Storage with Iceberg**: Once the data has been processed, the aggregated results are written to Apache Iceberg, which acts as the data lake. Iceberg is used to store large volumes of data in a structured format that allows for easy querying, data versioning, and schema evolution. This ensures that both raw and processed data are retained for downstream analysis and auditing purposes.
+
+5. **Monitoring and Visualization**: The entire pipeline is monitored using Prometheus and Grafana.
+   - **Prometheus** scrapes metrics from Kafka, Flink, and other components to provide insights into system performance.
+   - **Grafana** visualizes these metrics, providing dashboards such as the `Sales Analytics Dashboard`, which shows aggregated sales data by region. The dashboard (`monitoring/grafana/dashboards/sales_analytics_dashboard.json`) includes graphs that visualize the total sales by region over time.
+
+
+### Prerequisites
+- **Docker** and **Docker Compose** installed on your machine.
+- **Java** (for Java Flink implementation).
+- **Python 3.8** (for Python implementation).
+
 
 ## Project Structure
 
